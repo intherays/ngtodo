@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ToDO App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="todo.js"></script>
+</head>
+
+<body ng-app="myToDoApp">
+    <div ng-controller="toDoCtrl">
+        <div class="w3-container">
+            <h1>To Do App</h1>
+            <div class="w3-col s6">
+                <span class="w3-third w3-xlarge w3-text w3-right-align">Enter your to do :</span>
+                <input type="text" ng-model="addtodo" id="todotxt" class="w3-input w3-third">
+                <input type="button" ng-click="addList()" 
+                value="Add" class="w3-btn w3-round-large w3-third w3-indigo">
+            </div>
+        </div>
+        <hr class="w3-red w3-border">
+        <div class="w3-container">
+            <div >
+              <table class="w3-table w3-striped w3-border">
+                  <tr>
+                      <th width="25%">SL No. </th> <th width="50%">To Do's </th> <th width="25%">Actions</th>
+                  </tr>
+                  <tr ng-repeat="lists in myToDoList track by $index">
+                    <td>{{$index+1}}</td>
+                    <td>
+                        <span ng-hide="enableEdit">{{lists}}</span>
+                        <input type="text" ng-model="saveItm" ng-show="enableEdit">
+                    </td>
+                    <td><button class="w3-blue w3-btn"  ng-hide="enableEdit" ng-click="enableEdit=true; saveItm = lists">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </button> 
+                        <button class="w3-blue w3-btn" ng-show="enableEdit" id="saveBtn" 
+                         ng-click="enableEdit=false; updateList($index, saveItm)">
+                                <i class="fa fa-save" aria-hidden="true"></i>
+                            </button>
+                            | 
+                        <button class="w3-red w3-btn" ng-click="deleteToDo($index)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button> 
+                    </td>
+                  </tr>
+              </table>
+                {{lists}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
